@@ -4,7 +4,8 @@ import HelloWorld from '@/components/HelloWorld'
 import login from '@/components/login'
 import CreateCompany from '@/components/CreateCompany'
 import Dashboard from '@/components/Dashboard'
-
+import AddInventory from '@/components/AddInventory'
+import ChangeCompany from '@/components/ChangeCompany'
 Vue.use(Router)
 
 export default new Router({
@@ -28,6 +29,16 @@ export default new Router({
       path: '/dashboard',
       name: 'Dashboard',
       component: Dashboard
+    },
+    {
+      path: '/addinventory',
+      name: 'addInventory',
+      component: AddInventory
+    },
+    {
+      path: '/changecompany',
+      name: 'changeCompany',
+      component: ChangeCompany
     }
   ]
 })
