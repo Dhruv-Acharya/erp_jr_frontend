@@ -13,7 +13,11 @@
             <b-dropdown-item href="#">View</b-dropdown-item>
         </b-nav-item-dropdown>
         <b-nav-item-dropdown text="Accounts">
-            <b-dropdown-item href="#">ADD</b-dropdown-item>
+            <b-dropdown-item href="#">Add</b-dropdown-item>
+        </b-nav-item-dropdown>
+        <b-nav-item-dropdown text="Units">
+            <b-dropdown-item @click="toAddUnits()">Add</b-dropdown-item>
+            <b-dropdown-item @click="toViewUnits()">View</b-dropdown-item>
         </b-nav-item-dropdown>
         </b-navbar-nav>
         <b-navbar-nav class="ml-auto">
@@ -51,6 +55,12 @@ export default {
     },
     toViewInventory () {
       this.$router.push({name: 'viewInventory'})
+    },
+    toAddUnits () {
+      this.$router.push({name: 'addUnits'})
+    },
+    toViewUnits () {
+      this.$router.push({name: 'viewUnits'})
     }
   },
   created () {
