@@ -6,6 +6,7 @@ import CreateCompany from '@/components/CreateCompany'
 import Dashboard from '@/components/Dashboard'
 import AddInventory from '@/components/AddInventory'
 import ChangeCompany from '@/components/ChangeCompany'
+import ViewInventory from '@/components/ViewInventory'
 Vue.use(Router)
 
 export default new Router({
@@ -39,6 +40,11 @@ export default new Router({
       path: '/changecompany',
       name: 'changeCompany',
       component: ChangeCompany
+    },
+    {
+      path: '/viewinventory',
+      name: 'viewInventory',
+      component: ViewInventory
     }
   ]
 })
