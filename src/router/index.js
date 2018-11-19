@@ -11,6 +11,8 @@ import AddUnits from '@/components/AddUnits'
 import ViewUnits from '@/components/ViewUnits'
 import CreateCategory from '@/components/CreateCategory'
 import ViewCategory from '@/components/ViewCategory'
+import AddState from '@/components/AddState'
+import ViewState from '@/components/ViewState'
 Vue.use(Router)
 
 export default new Router({
@@ -69,6 +71,16 @@ export default new Router({
       path: '/viewcategory',
       name: 'viewCategory',
       component: ViewCategory
+    },
+    {
+      path: '/addstate',
+      name: 'addstate',
+      component: AddState
+    },
+    {
+      path: '/viewstate',
+      name: 'viewstate',
+      component: ViewState
     }
   ]
 })
