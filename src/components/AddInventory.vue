@@ -23,14 +23,11 @@
          </b-input-group>
          <!--Enter Quantity of the inventory item-->
          <b-input-group  class="input">
-                <b-form-input placeholder="Enter Quantity" id="inventoryQty"></b-form-input>
-                <b-dropdown text="Unit" slot="append">
-                    <b-dropdown-item>Pcs. </b-dropdown-item>
-                    <b-dropdown-item>Dozen</b-dropdown-item>
-                </b-dropdown>
+                <b-form-input  placeholder="Enter Quantity" id="inventoryQty"></b-form-input>
+               <b-form-select  slot="append" id="inventoryUnits" v-model="selected" :options="optionsUnits" placeholder="Select Units" />
          </b-input-group>
          <!--Enter Category of the inventory item-->
-         <b-form-select id="inventoryCategory" v-model="selected" :options="options" class="mb-3 input" placeholder="Select Category" />
+         <b-form-select id="inventoryCategory" v-model="selected" :options="optionsCategory" class="input" placeholder="Select Category" />
         <div>
         <b-button id="addInventory" size="md" variant="primary">
                 Add
@@ -43,9 +40,13 @@ export default {
   data () {
     return {
       selected: null,
-      options: [
+      optionsCategory: [
         { text: 'Select One', value: null },
         'Food.', 'Beverages'
+      ],
+      optionsUnits: [
+        { text: 'Select One', value: null },
+        'Pcs.', 'Dozen'
       ]
     }
   }
@@ -57,3 +58,4 @@ export default {
   margin: 10px auto;
 }
 </style>
+
