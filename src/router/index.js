@@ -9,6 +9,8 @@ import ChangeCompany from '@/components/ChangeCompany'
 import ViewInventory from '@/components/ViewInventory'
 import AddUnits from '@/components/AddUnits'
 import ViewUnits from '@/components/ViewUnits'
+import CreateCategory from '@/components/CreateCategory'
+import ViewCategory from '@/components/ViewCategory'
 Vue.use(Router)
 
 export default new Router({
@@ -57,6 +59,16 @@ export default new Router({
       path: '/viewunits',
       name: 'viewUnits',
       component: ViewUnits
+    },
+    {
+      path: '/createcategory',
+      name: 'createCategory',
+      component: CreateCategory
+    },
+    {
+      path: '/viewcategory',
+      name: 'viewCategory',
+      component: ViewCategory
     }
   ]
 })
