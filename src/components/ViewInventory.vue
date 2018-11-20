@@ -85,6 +85,7 @@
 </template>
 
 <script>
+import Vue from 'vue'
 const items = [
   {description: 40, name: 'Item 1', costPrice: 120, sellingPrice: 150, quantity: 12, unit: 'Dozen', category: 'Food'},
   {description: 40, name: 'Item 1', costPrice: 120, sellingPrice: 150, quantity: 12, unit: 'Dozen', category: 'Food'},
@@ -149,7 +150,13 @@ export default {
     },
     deleteRecord (item) {
       console.log(item)
+    },
+    async sample () {
+      console.log(Vue.localStorage.get('bearer'))
     }
+  },
+  mounted () {
+    this.sample()
   }
 }
 </script>

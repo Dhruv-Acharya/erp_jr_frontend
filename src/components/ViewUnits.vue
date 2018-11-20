@@ -54,8 +54,8 @@
 
   </b-container>
 </template>
-
 <script>
+import userService from '../services/userService'
 const items = [
   {name: 'Dozen'},
   {name: 'Pieces'}
@@ -101,7 +101,14 @@ export default {
     },
     deleteRecord (item) {
       console.log(item)
+    },
+    async fetchAllUnits () {
+      var response = await userService.getAllUnits()
+      console.log(response.data)
     }
+  },
+  mounted () {
+    this.fetchAllUnits()
   }
 }
 </script>

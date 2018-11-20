@@ -12,6 +12,21 @@
         </div>
     </div>
 </template>
+<script>
+export default {
+  data () {
+    return {
+    }
+  }
+}
+</script>
+<style>
+.input {
+  width: 40%;
+  margin: 10px auto;
+}
+</style>
+
 <style>
 .input {
   width: 40%;
