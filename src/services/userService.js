@@ -18,7 +18,7 @@ export default {
     return Api().put(`/company/${id}`, {company_name: companyName}, {headers: {'Authorization': Vue.localstorage.get('bearer')}})
   },
   getAllUnits () {
-    return Api().get(`/unit`, {headers: {'Authorization': Vue.localstorage.get('bearer')}})
+    return Api().get(`/unit`, {headers: {'Authorization': Vue.localStorage.get('bearer')}})
   },
   insertUnit (unitType) {
     return Api().post(`/unit`, {unit_type: unitType}, {headers: {'Authorization': Vue.localstorage.get('bearer')}})
@@ -88,5 +88,44 @@ export default {
   },
   deleteAccount (id) {
     return Api().delete(`/account/${id}`, {headers: {'Authorization': Vue.localstorage.get('bearer')}})
+  },
+  addState (stateName) {
+    return Api().post(`/state`, {state_name: stateName}, {headers: {'Authorization': Vue.localstorage.get('bearer')}})
+  },
+  deleteState (id) {
+    return Api().delete(`/state/${id}`, {headers: {'Authorization': Vue.localstorage.get('bearer')}})
+  },
+  addAnAddress (addressLine, state) {
+    return Api().post(`/address`, {address_line: addressLine, state: state}, {headers: {'Authorization': Vue.localstorage.get('bearer')}})
+  },
+  getAllAddress () {
+    return Api().get(`/address`, {headers: {'Authorization': Vue.localstorage.get('bearer')}})
+  },
+  getOneAddress (id) {
+    return Api().get(`/address/${id}`, {headers: {'Authorization': Vue.localstorage.get('bearer')}})
+  },
+  updateAddress (id, addressLine, state) {
+    return Api().put(`/address/${id}`, {address_line: addressLine, state: state}, {headers: {'Authorization': Vue.localstorage.get('bearer')}})
+  },
+  deleteAddress (id) {
+    return Api().delete(`/address/${id}`, {headers: {'Authorization': Vue.localstorage.get('bearer')}})
+  },
+  addAnInventoryItem (itemName, itemDescription, itemCostPrice, itemSellingPrice, itemQty, unit, category) {
+    return Api().post(`/inventoryItem`, {item_name: itemName, item_description: itemDescription, item_cost_price: itemCostPrice, item_selling_price: itemSellingPrice, item_qty: itemQty, unit: unit, category: category}, {headers: {'Authorization': Vue.localstorage.get('bearer')}})
+  },
+  getAllInventoryItems () {
+    return Api().get(`/inventoryItem`, {headers: {'Authorization': Vue.localstorage.get('bearer')}})
+  },
+  getSingleInventoryItem (id) {
+    return Api().get(`/inventoryItem/${id}`, {headers: {'Authorization': Vue.localstorage.get('bearer')}})
+  },
+  updateInventoryItem (id, itemName, itemDescription, itemCostPrice, itemSellingPrice, itemQty, unit, category) {
+    return Api().put(`/inventoryItem/${id}`, {item_name: itemName, item_description: itemDescription, item_cost_price: itemCostPrice, item_selling_price: itemSellingPrice, item_qty: itemQty, unit: unit, category: category}, {headers: {'Authorization': Vue.localstorage.get('bearer')}})
+  },
+  deleteInventoryItem (id) {
+    return Api().delete(`/inventoryItem/${id}`, {headers: {'Authorization': Vue.localstorage.get('bearer')}})
+  },
+  getBarCodeItemDetails () {
+    return Api().get(`/barCodeItemDetails`, {headers: {'Authorization': Vue.localstorage.get('bearer')}})
   }
 }
