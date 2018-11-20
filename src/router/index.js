@@ -13,6 +13,8 @@ import CreateCategory from '@/components/CreateCategory'
 import ViewCategory from '@/components/ViewCategory'
 import AddState from '@/components/AddState'
 import ViewState from '@/components/ViewState'
+import AddAccountType from '@/components/AddAccountType'
+import ViewAccountType from '@/components/ViewAccountType'
 Vue.use(Router)
 
 export default new Router({
@@ -81,6 +83,16 @@ export default new Router({
       path: '/viewstate',
       name: 'viewstate',
       component: ViewState
+    },
+    {
+      path: '/addaccounttype',
+      name: 'addaccounttype',
+      component: AddAccountType
+    },
+    {
+      path: '/viewaccounttype',
+      name: 'viewaccounttype',
+      component: ViewAccountType
     }
   ]
 })
