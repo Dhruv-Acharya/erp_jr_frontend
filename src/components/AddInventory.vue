@@ -23,47 +23,63 @@
          </b-input-group>
          <!--Enter Quantity of the inventory item-->
          <b-input-group  class="input">
-<<<<<<< HEAD
-                <b-form-input placeholder="Enter Quantity" v-model="itemQty" id="inventoryQty"></b-form-input>
-                <b-dropdown v-model="itemUnit" text="Unit" slot="append">
-                    <b-dropdown-item>Pcs. </b-dropdown-item>
-                    <b-dropdown-item>Dozen</b-dropdown-item>
-                </b-dropdown>
-=======
-                <b-form-input  placeholder="Enter Quantity" id="inventoryQty"></b-form-input>
-               <b-form-select  slot="append" id="inventoryUnits" v-model="selected" :options="optionsUnits" placeholder="Select Units" />
->>>>>>> 5e449f79b79d8e2293984115bbe48ee0e68eaf41
+                <b-form-input  placeholder="Enter Quantity" id="inventoryQty" v-model="itemQty"></b-form-input>
+               <b-form-select  slot="append" id="inventoryUnits" v-model="unitSelected" :options="optionsUnits" placeholder="Select Units" />
          </b-input-group>
          <!--Enter Category of the inventory item-->
-         <b-form-select id="inventoryCategory" v-model="selected" :options="optionsCategory" class="input" placeholder="Select Category" />
+         <b-form-select id="inventoryCategory" v-model="categorySelected" :options="optionsCategory" class="input" placeholder="Select Category" />
         <div>
-        <b-button id="addInventory" size="md" variant="primary">
+        <b-button id="addInventory" size="md" variant="primary" @click="addInventory()">
                 Add
             </b-button>
         </div>
     </div>
 </template>
 <script>
+import userService from '../services/userService'
 export default {
   data () {
     return {
-      itemName: ' ',
-      itemDescription: ' ',
-      costPrice: ' ',
-      sellPrice: ' ',
-      category: ' ',
-      itemQty: ' ',
-      itemUnit: ' ',
-      selected: null,
-      optionsCategory: [
-        { text: 'Select One', value: null },
-        'Food.', 'Beverages'
-      ],
-      optionsUnits: [
-        { text: 'Select One', value: null },
-        'Pcs.', 'Dozen'
-      ]
+      itemName: null,
+      itemDescription: null,
+      costPrice: null,
+      sellPrice: null,
+      category: null,
+      itemQty: null,
+      itemUnit: null,
+      unitSelected: null,
+      categorySelected: null,
+      optionsCategory: [],
+      optionsUnits: []
     }
+  },
+  methods: {
+    async fetchUnits () {
+      var response = await userService.getAllUnits()
+      console.log(response.data)
+      var unitsArray = [{value: null, text: 'Select Unit', disabled: true}]
+      for (var item of response.data) {
+        unitsArray.push({value: item, text: item.unit_type})
+      }
+      this.optionsUnits = unitsArray
+    },
+    async fetchCategories () {
+      var response = await userService.getAllCategories()
+      console.log(response.data)
+      var categoryArray = [{value: null, text: 'Please select a category', disabled: true}]
+      for (var item of response.data) {
+        categoryArray.push({value: item, text: item.category_name})
+      }
+      this.optionsCategory = categoryArray
+    },
+    async addInventory () {
+      var response = await userService.addAnInventoryItem(this.itemName, this.itemDescription, this.costPrice, this.sellPrice, this.itemQty, this.unitSelected, this.categorySelected)
+      console.log(response.data)
+    }
+  },
+  mounted () {
+    this.fetchUnits()
+    this.fetchCategories()
   }
 }
 </script>
@@ -73,4 +89,3 @@ export default {
   margin: 10px auto;
 }
 </style>
-

@@ -57,14 +57,14 @@
              @filtered="onFiltered"
              responsive
     >
-      <template slot="Quantity" slot-scope="row">{{row.item.quantity}} / {{row.item.unit}}</template>
-      <template slot="isActive" slot-scope="row">{{row.value?'Yes :)':'No :('}}</template>
+      <template slot="Quantity" slot-scope="row">{{row.item.item_qty}} / {{row.item.unit.unit_type}}</template>
+      <template slot="Category" slot-scope="row">{{row.item.category.category_name}}</template>
       <template slot="actions" slot-scope="row">
         <!-- We use @click.stop here to prevent a 'row-clicked' event from also happening -->
         <b-button size="sm" @click.stop="editRecord(row.item, row.index, $event.target)" class="mr-1">
           Edit
         </b-button>
-        <b-button size="sm" @click.stop="deleteRecord(row.item)">
+        <b-button size="sm" @click.stop="deleteRecord(row.item.item_id)">
           Delete
         </b-button>
       </template>
@@ -76,75 +76,59 @@
     </b-row>
 
     <!-- Info modal -->
-    <b-modal id="modalInfo" @hide="resetModal" title="Edit Record" size="lg" centered>
+    <b-modal id="modalInfo" @hide="resetModal" title="Edit Record" size="lg" centered hide-footer>
       <!-- <pre>{{ modalInfo.content }}</pre> -->
-      <b-form-input v-model="modalInfo.content.name"
+      <b-form-input v-model="modalInfo.content.item_name"
                   type="text"
                   placeholder="Enter Item Name" class="input modal-input"></b-form-input>
-      <b-form-textarea v-model="modalInfo.content.description"
+      <b-form-textarea v-model="modalInfo.content.item_description"
                   type="text"
                   placeholder="Enter Description" class="input modal-input"></b-form-textarea>
-      <b-form-input v-model="modalInfo.content.costPrice"
+      <b-form-input v-model="modalInfo.content.item_cost_price"
                   type="text"
                   placeholder="Enter Cost Price" class="input modal-input"></b-form-input>
-      <b-form-input v-model="modalInfo.content.sellingPrice"
+      <b-form-input v-model="modalInfo.content.item_selling_price"
                   type="text"
                   placeholder="Enter Selling Price" class="input modal-input"></b-form-input>
       <b-input-group  class="input modal-input">
-                <b-form-input placeholder="Enter Quantity" v-model="modalInfo.content.quantity" id="inventoryQty"></b-form-input>
-                <b-form-select slot="append" v-model="selected" :options="options">
+                <b-form-input placeholder="Enter Quantity" v-model="modalInfo.content.item_qty" id="inventoryQty"></b-form-input>
+                <b-form-select slot="append" v-model="modalInfo.content.unit" :options="unitsOptions">
                 </b-form-select>
       </b-input-group>
+      <b-form-select v-model="modalInfo.content.category" :options="categoryOptions" class="input modal-input">
+                </b-form-select>
+      <b-button @click="updateInventory(modalInfo.content)" class="input modal-input">Update</b-button>
     </b-modal>
 
   </b-container>
 </template>
 
 <script>
-
-const items = [
-  {description: 40, name: 'Item 1', costPrice: 120, sellingPrice: 150, quantity: 12, unit: 'Pcs', category: 'Food'},
-  {description: 40, name: 'Item 1', costPrice: 120, sellingPrice: 150, quantity: 12, unit: 'Dozen', category: 'Food'},
-  {description: 40, name: 'Item 1', costPrice: 120, sellingPrice: 150, quantity: 12, unit: 'Dozen', category: 'Food'},
-  {description: 40, name: 'Item 1', costPrice: 120, sellingPrice: 150, quantity: 12, unit: 'Dozen', category: 'Food'},
-  {description: 40, name: 'Item 1', costPrice: 120, sellingPrice: 150, quantity: 12, unit: 'Dozen', category: 'Food'},
-  {description: 40, name: 'Item 1', costPrice: 120, sellingPrice: 150, quantity: 12, unit: 'Dozen', category: 'Food'},
-  {description: 40, name: 'Item 1', costPrice: 120, sellingPrice: 150, quantity: 12, unit: 'Dozen', category: 'Food'},
-  {description: 40, name: 'Item 1', costPrice: 120, sellingPrice: 150, quantity: 12, unit: 'Dozen', category: 'Food'},
-  {description: 40, name: 'Item 1', costPrice: 120, sellingPrice: 150, quantity: 12, unit: 'Dozen', category: 'Food'},
-  {description: 40, name: 'Item 1', costPrice: 120, sellingPrice: 150, quantity: 12, unit: 'Dozen', category: 'Food'},
-  {description: 40, name: 'Item 1', costPrice: 120, sellingPrice: 150, quantity: 12, unit: 'Dozen', category: 'Food'},
-  {description: 40, name: 'Item 1', costPrice: 10, sellingPrice: 150, quantity: 12, unit: 'Dozen', category: 'Food'},
-  {description: 40, name: 'Item 1', costPrice: 120, sellingPrice: 150, quantity: 12, unit: 'Dozen', category: 'Food'},
-  {description: 40, name: 'Item 1', costPrice: 20, sellingPrice: 150, quantity: 12, unit: 'Dozen', category: 'Food'}
-]
+import userService from '../services/userService'
 export default {
   data () {
     return {
-      items: items,
+      items: [],
       fields: [
-        { key: 'name', label: 'Item name', sortable: true, sortDirection: 'desc' },
-        { key: 'description', label: 'Description', 'class': 'text-center' },
-        { key: 'costPrice', label: 'Cost Price', sortable: true },
-        { key: 'sellingPrice', label: 'Selling Price', sortable: true },
+        { key: 'item_name', label: 'Item name', sortable: true, sortDirection: 'desc' },
+        { key: 'item_description', label: 'Description', 'class': 'text-center' },
+        { key: 'item_cost_price', label: 'Cost Price', sortable: true },
+        { key: 'item_selling_price', label: 'Selling Price', sortable: true },
         { key: 'Quantity', label: 'Quantity', sortable: true },
-        { key: 'actions', label: 'Actions', sortable: true }
+        { key: 'Category', label: 'Category', sortable: true },
+        { key: 'actions', label: 'Actions' }
       ],
       currentPage: 1,
       perPage: 5,
-      totalRows: items.length,
+      totalRows: 0,
       pageOptions: [ 5, 10, 15 ],
       sortBy: null,
       sortDesc: false,
       sortDirection: 'asc',
       filter: null,
       modalInfo: { title: 'Edit Record', content: {} },
-      selected: null,
-      options: [
-        { value: null, text: 'Please select an option' },
-        { value: 'a', text: 'This is First option' },
-        { value: 'b', text: 'Selected Option' }
-      ]
+      categoryOptions: [],
+      unitsOptions: []
     }
   },
   computed: {
@@ -168,11 +152,40 @@ export default {
       this.totalRows = filteredItems.length
       this.currentPage = 1
     },
-    deleteRecord (item) {
-      console.log(item)
+    deleteRecord (itemId) {
+      userService.deleteInventoryItem(itemId)
+    },
+    async fetchUnits () {
+      var response = await userService.getAllUnits()
+      console.log(response.data)
+      var unitsArray = [{value: null, text: 'Select Unit', disabled: true}]
+      for (var item of response.data) {
+        unitsArray.push({value: item, text: item.unit_type})
+      }
+      this.unitsOptions = unitsArray
+    },
+    async fetchCategories () {
+      var response = await userService.getAllCategories()
+      console.log(response.data)
+      var categoryArray = [{value: null, text: 'Please select a category', disabled: true}]
+      for (var item of response.data) {
+        categoryArray.push({value: item, text: item.category_name})
+      }
+      this.categoryOptions = categoryArray
+    },
+    async fetchInventory () {
+      var response = await userService.getAllInventoryItems()
+      this.items = response.data
+      this.totalRows = this.items.length
+    },
+    async updateInventory (item) {
+      console.log(await userService.updateInventoryItem(item.item_id, item))
     }
   },
   mounted () {
+    this.fetchUnits()
+    this.fetchCategories()
+    this.fetchInventory()
   }
 }
 </script>

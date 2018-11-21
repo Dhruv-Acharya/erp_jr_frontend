@@ -119,8 +119,8 @@ export default {
   getSingleInventoryItem (id) {
     return Api().get(`/inventoryItem/${id}`, {headers: {'Authorization': Vue.localStorage.get('bearer')}})
   },
-  updateInventoryItem (id, itemName, itemDescription, itemCostPrice, itemSellingPrice, itemQty, unit, category) {
-    return Api().put(`/inventoryItem/${id}`, {item_name: itemName, item_description: itemDescription, item_cost_price: itemCostPrice, item_selling_price: itemSellingPrice, item_qty: itemQty, unit: unit, category: category}, {headers: {'Authorization': Vue.localStorage.get('bearer')}})
+  updateInventoryItem (id, item) {
+    return Api().put(`/inventoryItem/${id}`, item, {headers: {'Authorization': Vue.localStorage.get('bearer')}})
   },
   deleteInventoryItem (id) {
     return Api().delete(`/inventoryItem/${id}`, {headers: {'Authorization': Vue.localStorage.get('bearer')}})
