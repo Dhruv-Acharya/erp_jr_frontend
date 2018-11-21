@@ -69,7 +69,6 @@
         </b-button>
       </template>
     </b-table>
-
     <b-row>
       <b-col md="6" class="my-1">
         <b-pagination :total-rows="totalRows" :per-page="perPage" v-model="currentPage" class="my-0" />
@@ -77,8 +76,25 @@
     </b-row>
 
     <!-- Info modal -->
-    <b-modal id="modalInfo" @hide="resetModal" :title="modalInfo.title" ok-only>
-      <pre>{{ modalInfo.content }}</pre>
+    <b-modal id="modalInfo" @hide="resetModal" title="Edit Record" size="lg" centered>
+      <!-- <pre>{{ modalInfo.content }}</pre> -->
+      <b-form-input v-model="modalInfo.content.name"
+                  type="text"
+                  placeholder="Enter Item Name" class="input modal-input"></b-form-input>
+      <b-form-textarea v-model="modalInfo.content.description"
+                  type="text"
+                  placeholder="Enter Description" class="input modal-input"></b-form-textarea>
+      <b-form-input v-model="modalInfo.content.costPrice"
+                  type="text"
+                  placeholder="Enter Cost Price" class="input modal-input"></b-form-input>
+      <b-form-input v-model="modalInfo.content.sellingPrice"
+                  type="text"
+                  placeholder="Enter Selling Price" class="input modal-input"></b-form-input>
+      <b-input-group  class="input modal-input">
+                <b-form-input placeholder="Enter Quantity" v-model="modalInfo.content.quantity" id="inventoryQty"></b-form-input>
+                <b-form-select slot="append" v-model="selected" :options="options">
+                </b-form-select>
+      </b-input-group>
     </b-modal>
 
   </b-container>
@@ -87,7 +103,7 @@
 <script>
 
 const items = [
-  {description: 40, name: 'Item 1', costPrice: 120, sellingPrice: 150, quantity: 12, unit: 'Dozen', category: 'Food'},
+  {description: 40, name: 'Item 1', costPrice: 120, sellingPrice: 150, quantity: 12, unit: 'Pcs', category: 'Food'},
   {description: 40, name: 'Item 1', costPrice: 120, sellingPrice: 150, quantity: 12, unit: 'Dozen', category: 'Food'},
   {description: 40, name: 'Item 1', costPrice: 120, sellingPrice: 150, quantity: 12, unit: 'Dozen', category: 'Food'},
   {description: 40, name: 'Item 1', costPrice: 120, sellingPrice: 150, quantity: 12, unit: 'Dozen', category: 'Food'},
@@ -122,7 +138,13 @@ export default {
       sortDesc: false,
       sortDirection: 'asc',
       filter: null,
-      modalInfo: { title: '', content: '' }
+      modalInfo: { title: 'Edit Record', content: {} },
+      selected: null,
+      options: [
+        { value: null, text: 'Please select an option' },
+        { value: 'a', text: 'This is First option' },
+        { value: 'b', text: 'Selected Option' }
+      ]
     }
   },
   computed: {
@@ -135,12 +157,10 @@ export default {
   },
   methods: {
     editRecord (item, index, button) {
-      this.modalInfo.title = `Row index: ${index}`
-      this.modalInfo.content = JSON.stringify(item, null, 2)
+      this.modalInfo.content = item
       this.$root.$emit('bv::show::modal', 'modalInfo', button)
     },
     resetModal () {
-      this.modalInfo.title = ''
       this.modalInfo.content = ''
     },
     onFiltered (filteredItems) {
@@ -156,3 +176,8 @@ export default {
   }
 }
 </script>
+<style>
+  .modal-input{
+    margin-top: 10px;
+  }
+</style>
