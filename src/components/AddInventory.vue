@@ -3,11 +3,11 @@
         <h1> Jalaram rakhi</h1>
         <!--Enter name of the inventory item-->
         <b-input-group  class="input">
-                <b-form-input id="inventoryName" placeholder="Enter Name"></b-form-input>
+                <b-form-input id="inventoryName" v-model="itemName" placeholder="Enter Name"></b-form-input>
         </b-input-group>
         <!--Enter description of the inventory item-->
         <b-form-textarea id="inventoryDesc"
-                     v-model="text"
+                     v-model="itemDescription"
                      placeholder="Enter Description"
                      :rows="3"
                      :max-rows="6"
@@ -15,16 +15,16 @@
         </b-form-textarea>
         <!--Enter cost price of the inventory item-->
         <b-input-group prepend="Rs." append=".00" class="input">
-                <b-form-input  placeholder="Enter Cost Price" id="inventoryCostPrice" ></b-form-input>
+                <b-form-input  placeholder="Enter Cost Price" v-model="costPrice" id="inventoryCostPrice" ></b-form-input>
          </b-input-group>
          <!--Enter selling  price of the inventory item-->
          <b-input-group prepend="Rs." append=".00" class="input">
-                <b-form-input  placeholder="Enter Selling Price" id="inventorySellPrice"></b-form-input>
+                <b-form-input  placeholder="Enter Selling Price" v-model="sellPrice" id="inventorySellPrice"></b-form-input>
          </b-input-group>
          <!--Enter Quantity of the inventory item-->
          <b-input-group  class="input">
-                <b-form-input placeholder="Enter Quantity" id="inventoryQty"></b-form-input>
-                <b-dropdown text="Unit" slot="append">
+                <b-form-input placeholder="Enter Quantity" v-model="itemQty" id="inventoryQty"></b-form-input>
+                <b-dropdown v-model="itemUnit" text="Unit" slot="append">
                     <b-dropdown-item>Pcs. </b-dropdown-item>
                     <b-dropdown-item>Dozen</b-dropdown-item>
                 </b-dropdown>
@@ -42,6 +42,13 @@
 export default {
   data () {
     return {
+      itemName: ' ',
+      itemDescription: ' ',
+      costPrice: ' ',
+      sellPrice: ' ',
+      category: ' ',
+      itemQty: ' ',
+      itemUnit: ' ',
       selected: null,
       options: [
         { text: 'Select One', value: null },
