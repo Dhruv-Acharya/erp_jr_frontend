@@ -48,32 +48,32 @@
     </b-row>
 
     <!-- Info modal -->
-    <b-modal id="modalInfo" @hide="resetModal" :title="modalInfo.title" ok-only>
-      <pre>{{ modalInfo.content }}</pre>
+    <b-modal id="modalInfo" @hide="resetModal" title="Edit Record" size="lg" centered hide-footer>
+      <!-- <pre>{{ modalInfo.content }}</pre> -->
+      <b-form-input v-model="modalInfo.content.unit_type"
+                  type="text"
+                  placeholder="Enter Item Name" class="input modal-input"></b-form-input>
+      <b-button style="margin-top:10px" @click="updateUnit(modalInfo.content)"> Update </b-button>
     </b-modal>
 
   </b-container>
 </template>
 <script>
 import userService from '../services/userService'
-const items = [
-  {name: 'Dozen'},
-  {name: 'Pieces'}
-]
 export default {
   data () {
     return {
-      items: items,
+      items: [],
       fields: [
-        { key: 'name', label: 'Unit name', sortable: true },
+        { key: 'unit_type', label: 'Unit name', sortable: true },
         { key: 'actions', label: 'Actions', sortable: true }
       ],
       currentPage: 1,
       perPage: 5,
-      totalRows: items.length,
+      totalRows: '',
       pageOptions: [ 5, 10, 15 ],
       filter: null,
-      modalInfo: { title: '', content: '' }
+      modalInfo: { title: 'Edit Unit', content: {} }
     }
   },
   computed: {
@@ -87,10 +87,11 @@ export default {
   methods: {
     editRecord (item, index, button) {
       this.modalInfo.title = `Row index: ${index}`
-      this.modalInfo.content = JSON.stringify(item, null, 2)
+      this.modalInfo.content = item
       this.$root.$emit('bv::show::modal', 'modalInfo', button)
     },
     resetModal () {
+      alert('Taimur ne mari deepak ko laat, deepak sadme me')
       this.modalInfo.title = ''
       this.modalInfo.content = ''
     },
@@ -105,6 +106,13 @@ export default {
     async fetchAllUnits () {
       var response = await userService.getAllUnits()
       console.log(response.data)
+      this.totalRows = response.data.length
+      this.items = response.data
+    },
+    async updateUnit (unit) {
+      console.log(unit.unit_id)
+      var response = await userService.updateUnit(unit.unit_id, unit.unit_type)
+      console.log(response)
     }
   },
   mounted () {
