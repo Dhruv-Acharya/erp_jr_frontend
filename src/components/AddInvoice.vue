@@ -71,7 +71,7 @@
                         <b-input-group>
                            <!-- <b-form-select id="inventoryitem" v-model="selected" :options="items"  placeholder="Select Item" /> -->
                            <Dropdown
-                                v-model="selected" :options="options"
+                                :selected="selectedItem" :options="optionsItems"
                                 v-on:selected="validateSelection"
                                 v-on:filter="getDropdownValues"
                                 :disabled="false"
@@ -136,6 +136,7 @@ export default {
       selectedState: null,
       optionsState: [],
       optionsItems: [],
+      selectedItem: null,
       billitems: [
         {
           inventoryitem: '',
@@ -174,11 +175,11 @@ export default {
     async fetchInventoryItems () {
       var response = await userService.getAllInventoryItems()
       console.log(response)
-      var stateArray = []
+      var inventoryItemsArray = []
       for (var item of response.data) {
-        stateArray.push({id: item, name: item.state_name})
+        inventoryItemsArray.push({id: item, name: item.item_name})
       }
-      this.optionsItems = stateArray
+      this.optionsItems = inventoryItemsArray
     }
   },
   mounted () {
