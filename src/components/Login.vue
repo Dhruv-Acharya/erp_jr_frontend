@@ -47,6 +47,9 @@ export default {
     },
     async login () {
       var response = await userService.userLogin(this.userName, this.userPassword, this.selected)
+      if (response.status !== 200) {
+        alert('Invalid username or password')
+      }
       Vue.localStorage.set('bearer', 'Bearer ' + response.data.token)
       var userObj = await userService.getUserObject(response.data.user.username, response.data.company.company_id)
       response.data.user.user_id = userObj.data.user_id
@@ -55,6 +58,9 @@ export default {
       console.log(Vue.localStorage.get('bearer'))
       Vue.localStorage.set('company', JSON.stringify(response.data.company))
       Vue.localStorage.set('user', JSON.stringify(response.data.user))
+      if (response.data.token) {
+        this.$router.push('Dashboard')
+      }
     }
   },
   mounted () {
