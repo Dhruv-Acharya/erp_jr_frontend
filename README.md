@@ -31,7 +31,8 @@ This ERP System  uses a number of open source projects to work properly:
     
     -postgresql
 *Vue
-    -bootstrap
+    -vue-bootstrap
+    
     -vue-simple-search-select
 # erp_jr_vue
 
