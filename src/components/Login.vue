@@ -50,6 +50,8 @@ export default {
       var response = await userService.userLogin(this.userName, this.userPassword, this.selected)
       console.log(response.data)
       Vue.localStorage.set('bearer', response.data)
+      Vue.localStorage.set('companyName', JSON.stringify(this.selected))
+      console.log(JSON.parse(Vue.localStorage.get('companyName')))
       console.log(Vue.localStorage.get('bearer'))
       var charArray = response.data.split(' ')
       console.log(VueJwtDecode.decode(charArray[1]))

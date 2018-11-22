@@ -109,7 +109,7 @@ export default {
     },
     async deleteRecord (itemId) {
       var response = await userService.deleteAccount(itemId)
-      console.log(response);
+      console.log(response)
     },
     async fetchAllAccounts () {
       var response = await userService.getAllAccounts()
