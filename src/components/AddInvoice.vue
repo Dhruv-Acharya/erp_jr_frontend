@@ -180,9 +180,15 @@ export default {
         inventoryItemsArray.push({id: item, name: item.item_name})
       }
       this.optionsItems = inventoryItemsArray
+    },
+    checkLogin () {
+      if (!userService.checkIfLoggedIn()) {
+        this.$router.push('Login')
+      }
     }
   },
   mounted () {
+    this.checkLogin()
     this.fetchStates()
     this.fetchInventoryItems()
   }

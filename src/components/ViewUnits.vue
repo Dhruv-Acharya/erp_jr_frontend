@@ -111,9 +111,15 @@ export default {
       console.log(unit.unit_id)
       var response = await userService.updateUnit(unit.unit_id, unit.unit_type)
       console.log(response)
+    },
+    checkLogin () {
+      if (!userService.checkIfLoggedIn()) {
+        this.$router.push('Login')
+      }
     }
   },
   mounted () {
+    this.checkLogin()
     this.fetchAllUnits()
   }
 }

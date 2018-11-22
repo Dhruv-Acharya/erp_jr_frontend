@@ -25,7 +25,15 @@ export default {
     async addNewState () {
       var response = await userService.addState(this.stateName)
       console.log(response)
+    },
+    checkLogin () {
+      if (!userService.checkIfLoggedIn()) {
+        this.$router.push('Login')
+      }
     }
+  },
+  mounted () {
+    this.checkLogin()
   }
 }
 </script>

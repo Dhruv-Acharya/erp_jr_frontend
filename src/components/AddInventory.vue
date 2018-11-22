@@ -75,9 +75,15 @@ export default {
     async addInventory () {
       var response = await userService.addAnInventoryItem(this.itemName, this.itemDescription, this.costPrice, this.sellPrice, this.itemQty, this.unitSelected, this.categorySelected)
       console.log(response.data)
+    },
+    checkLogin () {
+      if (!userService.checkIfLoggedIn()) {
+        this.$router.push('Login')
+      }
     }
   },
   mounted () {
+    this.checkLogin()
     this.fetchUnits()
     this.fetchCategories()
   }

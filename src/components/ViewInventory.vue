@@ -180,9 +180,15 @@ export default {
     },
     async updateInventory (item) {
       console.log(await userService.updateInventoryItem(item.item_id, item))
+    },
+    checkLogin () {
+      if (!userService.checkIfLoggedIn()) {
+        this.$router.push('Login')
+      }
     }
   },
   mounted () {
+    this.checkLogin()
     this.fetchUnits()
     this.fetchCategories()
     this.fetchInventory()

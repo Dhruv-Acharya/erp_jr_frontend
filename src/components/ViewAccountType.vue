@@ -122,9 +122,15 @@ export default {
     async updateAccountType (item) {
       var response = await userService.updateAccountType(item.account_id, item.account_type)
       console.log(response)
+    },
+    checkLogin () {
+      if (!userService.checkIfLoggedIn()) {
+        this.$router.push('Login')
+      }
     }
   },
   mounted () {
+    this.checkLogin()
     this.getAllAccountTypes()
   }
 }

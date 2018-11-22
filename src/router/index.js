@@ -105,5 +105,6 @@ export default new Router({
       name: 'addinvoice',
       component: AddInvoice
     }
-  ]
+  ],
+  mode: 'history'
 })

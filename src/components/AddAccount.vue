@@ -45,9 +45,15 @@ export default {
     async addAccount () {
       var response = await userService.addAccount(this.accountSelected, this.companySelected, this.accountName)
       console.log(response)
+    },
+    checkLogin () {
+      if (!userService.checkIfLoggedIn()) {
+        this.$router.push('Login')
+      }
     }
   },
   mounted () {
+    this.checkLogin()
     this.getCompanies()
     this.fetchAccountType()
   }

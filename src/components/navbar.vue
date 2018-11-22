@@ -34,7 +34,7 @@
         <b-navbar-nav class="ml-auto">
         <b-nav-item-dropdown :text="company.company_name" right>
             <b-dropdown-item href="#">Add User</b-dropdown-item>
-            <b-dropdown-item href="#">Logout</b-dropdown-item>
+            <b-dropdown-item @click="logout()">Logout</b-dropdown-item>
         </b-nav-item-dropdown>
         </b-navbar-nav>
         </b-collapse>
@@ -47,7 +47,7 @@ export default {
   data () {
     return {
       showNav: true,
-      company: JSON.parse(Vue.localStorage.get('companyName'))
+      company: JSON.parse(Vue.localStorage.get('company'))
     }
   },
   methods: {
@@ -93,6 +93,10 @@ export default {
     },
     toViewCategory () {
       this.$router.push({name: 'viewCategory'})
+    },
+    async logout () {
+      Vue.localStorage.remove('bearer')
+      this.$router.push({name: 'Login'})
     }
   },
   created () {
