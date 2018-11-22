@@ -4,7 +4,6 @@ import login from '@/components/login'
 import CreateCompany from '@/components/CreateCompany'
 import Dashboard from '@/components/Dashboard'
 import AddInventory from '@/components/AddInventory'
-import ChangeCompany from '@/components/ChangeCompany'
 import ViewInventory from '@/components/ViewInventory'
 import AddUnits from '@/components/AddUnits'
 import ViewUnits from '@/components/ViewUnits'
@@ -44,11 +43,6 @@ export default new Router({
       path: '/addinventory',
       name: 'addInventory',
       component: AddInventory
-    },
-    {
-      path: '/changecompany',
-      name: 'changeCompany',
-      component: ChangeCompany
     },
     {
       path: '/viewinventory',

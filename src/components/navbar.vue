@@ -13,16 +13,26 @@
             <b-dropdown-item href="#">View</b-dropdown-item>
         </b-nav-item-dropdown>
         <b-nav-item-dropdown text="Accounts">
-            <b-dropdown-item href="#">Add</b-dropdown-item>
+            <b-dropdown-item @click="toAddAccount()">Add</b-dropdown-item>
+            <b-dropdown-item @click="toViewAccount()">View</b-dropdown-item>
         </b-nav-item-dropdown>
-        <b-nav-item-dropdown text="Units">
+        <b-nav-item-dropdown text="Utils">
+            <b-dropdown-header>Units</b-dropdown-header>
             <b-dropdown-item @click="toAddUnits()">Add</b-dropdown-item>
             <b-dropdown-item @click="toViewUnits()">View</b-dropdown-item>
+            <b-dropdown-header>AccountType</b-dropdown-header>
+            <b-dropdown-item @click="toAddAccountType()">Add</b-dropdown-item>
+            <b-dropdown-item @click="toViewAccountType()">View</b-dropdown-item>
+            <b-dropdown-header>Category</b-dropdown-header>
+            <b-dropdown-item @click="toAddCategory()">Add</b-dropdown-item>
+            <b-dropdown-item @click="toViewCategory()">View</b-dropdown-item>
+            <b-dropdown-header>State</b-dropdown-header>
+            <b-dropdown-item @click="toAddState()">Add</b-dropdown-item>
+            <b-dropdown-item @click="toViewState()">View</b-dropdown-item>
         </b-nav-item-dropdown>
         </b-navbar-nav>
         <b-navbar-nav class="ml-auto">
-        <b-nav-item-dropdown :text="companyName" right>
-            <b-dropdown-item @click="toChangeCompany()">Change Company</b-dropdown-item>
+        <b-nav-item-dropdown :text="companyName.company_name" right>
             <b-dropdown-item href="#">Add User</b-dropdown-item>
             <b-dropdown-item href="#">Logout</b-dropdown-item>
         </b-nav-item-dropdown>
@@ -31,12 +41,13 @@
     </b-navbar>
 </template>
 <script>
+import Vue from 'vue'
 export default {
   name: 'navbar',
   data () {
     return {
       showNav: true,
-      companyName: 'Abc Inc.'
+      companyName: JSON.parse(Vue.localStorage.get('companyName'))
     }
   },
   methods: {
@@ -50,9 +61,6 @@ export default {
     toAddInventory () {
       this.$router.push({name: 'addInventory'})
     },
-    toChangeCompany () {
-      this.$router.push({name: 'changeCompany'})
-    },
     toViewInventory () {
       this.$router.push({name: 'viewInventory'})
     },
@@ -61,6 +69,30 @@ export default {
     },
     toViewUnits () {
       this.$router.push({name: 'viewUnits'})
+    },
+    toAddAccount () {
+      this.$router.push({name: 'addaccount'})
+    },
+    toViewAccount () {
+      this.$router.push({name: 'viewaccount'})
+    },
+    toAddAccountType () {
+      this.$router.push({name: 'addaccounttype'})
+    },
+    toViewAccountType () {
+      this.$router.push({name: 'viewaccounttype'})
+    },
+    toAddState () {
+      this.$router.push({name: 'addstate'})
+    },
+    toViewState () {
+      this.$router.push({name: 'viewstate'})
+    },
+    toAddCategory () {
+      this.$router.push({name: 'createCategory'})
+    },
+    toViewCategory () {
+      this.$router.push({name: 'viewCategory'})
     }
   },
   created () {
