@@ -24,7 +24,15 @@ export default {
     async addNewUnit () {
       var response = await userService.insertUnit(this.unitName)
       console.log(response)
+    },
+    checkLogin () {
+      if (!userService.checkIfLoggedIn()) {
+        this.$router.push('Login')
+      }
     }
+  },
+  mounted () {
+    this.checkLogin()
   }
 }
 </script>

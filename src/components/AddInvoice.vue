@@ -179,9 +179,15 @@ export default {
         stateArray.push({id: item, name: item.state_name})
       }
       this.optionsItems = stateArray
+    },
+    checkLogin () {
+      if (!userService.checkIfLoggedIn()) {
+        this.$router.push('Login')
+      }
     }
   },
   mounted () {
+    this.checkLogin()
     this.fetchStates()
     this.fetchInventoryItems()
   }

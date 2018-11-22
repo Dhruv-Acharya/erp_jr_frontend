@@ -110,9 +110,15 @@ export default {
     async updateState (item) {
       var response = await userService.updateState(item.state_id, item.state_name)
       console.log(response)
+    },
+    checkLogin () {
+      if (!userService.checkIfLoggedIn()) {
+        this.$router.push('Login')
+      }
     }
   },
   mounted () {
+    this.checkLogin()
     this.fetchAllStates()
   }
 }

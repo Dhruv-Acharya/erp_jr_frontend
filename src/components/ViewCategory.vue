@@ -65,6 +65,7 @@
 </template>
 
 <script>
+import userService from '../services/userService'
 const items = [
   {HSNCode: 'Dozen', categoryName: 'category 1', taxRate: 100}
 ]
@@ -109,7 +110,15 @@ export default {
     },
     deleteRecord (item) {
       console.log(item)
+    },
+    checkLogin () {
+      if (!userService.checkIfLoggedIn()) {
+        this.$router.push('Login')
+      }
     }
+  },
+  mounted () {
+    this.checkLogin()
   }
 }
 </script>

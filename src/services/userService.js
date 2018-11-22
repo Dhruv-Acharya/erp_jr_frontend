@@ -133,5 +133,12 @@ export default {
   },
   getBarCodeItemDetails () {
     return Api().get(`/barCodeItemDetails`, {headers: {'Authorization': Vue.localStorage.get('bearer')}})
+  },
+  checkIfLoggedIn () {
+    if (Vue.localStorage.get('bearer')) {
+      return true
+    } else {
+      return false
+    }
   }
 }

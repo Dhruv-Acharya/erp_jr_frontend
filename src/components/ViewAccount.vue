@@ -137,9 +137,15 @@ export default {
         companyList.push({value: item, text: item.company_name})
       }
       this.companyOptions = companyList
+    },
+    checkLogin () {
+      if (!userService.checkIfLoggedIn()) {
+        this.$router.push('Login')
+      }
     }
   },
   mounted () {
+    this.checkLogin()
     this.fetchAllAccounts()
     this.fetchAllAccountType()
     this.getCompanies()

@@ -24,7 +24,15 @@ export default {
   methods: {
     async addAccountType () {
       console.log(await userService.addAccountType(this.accountType))
+    },
+    checkLogin () {
+      if (!userService.checkIfLoggedIn()) {
+        this.$router.push('Login')
+      }
     }
+  },
+  mounted () {
+    this.checkLogin()
   }
 }
 </script>
