@@ -1,6 +1,5 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import HelloWorld from '@/components/HelloWorld'
 import login from '@/components/login'
 import CreateCompany from '@/components/CreateCompany'
 import Dashboard from '@/components/Dashboard'
@@ -15,14 +14,16 @@ import AddState from '@/components/AddState'
 import ViewState from '@/components/ViewState'
 import AddAccountType from '@/components/AddAccountType'
 import ViewAccountType from '@/components/ViewAccountType'
+import AddAccount from '@/components/AddAccount'
+import ViewAccount from '@/components/ViewAccount'
 Vue.use(Router)
 
 export default new Router({
   routes: [
     {
       path: '/',
-      name: 'HelloWorld',
-      component: HelloWorld
+      name: 'Home',
+      component: Dashboard
     },
     {
       path: '/login',
@@ -93,6 +94,16 @@ export default new Router({
       path: '/viewaccounttype',
       name: 'viewaccounttype',
       component: ViewAccountType
+    },
+    {
+      path: '/addaccount',
+      name: 'addaccount',
+      component: AddAccount
+    },
+    {
+      path: '/viewaccount',
+      name: 'viewaccount',
+      component: ViewAccount
     }
   ]
 })

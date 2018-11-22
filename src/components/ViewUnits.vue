@@ -86,12 +86,10 @@ export default {
   },
   methods: {
     editRecord (item, index, button) {
-      this.modalInfo.title = `Row index: ${index}`
       this.modalInfo.content = item
       this.$root.$emit('bv::show::modal', 'modalInfo', button)
     },
     resetModal () {
-      alert('Taimur ne mari deepak ko laat, deepak sadme me')
       this.modalInfo.title = ''
       this.modalInfo.content = ''
     },
