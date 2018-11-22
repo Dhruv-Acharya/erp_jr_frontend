@@ -75,7 +75,7 @@ export default {
     return Api().delete(`/accountType/${id}`, {headers: {'Authorization': Vue.localStorage.get('bearer')}})
   },
   addAccount (accountType, company, accountName) {
-    return Api().post(`/accountType`, {account_type: accountType, company: company, account_name: accountName}, {headers: {'Authorization': Vue.localStorage.get('bearer')}})
+    return Api().post(`/account`, {accountType: accountType, company: company, account_name: accountName}, {headers: {'Authorization': Vue.localStorage.get('bearer')}})
   },
   getAllAccounts () {
     return Api().get(`/account`, {headers: {'Authorization': Vue.localStorage.get('bearer')}})
@@ -83,8 +83,8 @@ export default {
   getSingleAccount (id) {
     return Api().get(`/account/${id}`, {headers: {'Authorization': Vue.localStorage.get('bearer')}})
   },
-  updateAccount (id, accountType, company, accountName) {
-    return Api().put(`/account/${id}`, {account_type: accountType, company: company, account_name: accountName})
+  updateAccount (id, account) {
+    return Api().put(`/account/${id}`, account, {headers: {'Authorization': Vue.localStorage.get('bearer')}})
   },
   deleteAccount (id) {
     return Api().delete(`/account/${id}`, {headers: {'Authorization': Vue.localStorage.get('bearer')}})
