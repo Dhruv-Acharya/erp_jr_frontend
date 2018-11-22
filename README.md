@@ -22,9 +22,13 @@ This ERP System  uses a number of open source projects to work properly:
 
 *Spring Boot
     -springframework.boot-starter-test
+    
     -spring-boot-starter-data-jpa
+    
     -starter-security
+    
     -jwt
+    
     -postgresql
 *Vue
     -bootstrap
