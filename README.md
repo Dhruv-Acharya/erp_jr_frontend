@@ -21,6 +21,7 @@ This ERP System  uses a number of open source projects to work properly:
 ### Dependencies
 
 *Spring Boot
+
     -springframework.boot-starter-test
     
     -spring-boot-starter-data-jpa
@@ -31,9 +32,11 @@ This ERP System  uses a number of open source projects to work properly:
     
     -postgresql
 *Vue
+
     -vue-bootstrap
     
     -vue-simple-search-select
+    
 # erp_jr_vue
 
 > Frontend for ERP for JR
