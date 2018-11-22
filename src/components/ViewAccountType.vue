@@ -30,12 +30,13 @@
              @filtered="onFiltered"
              responsive
     >
+      <template slot="AccountName" slot-scope="row">{{row.item.account_type}}</template>
       <template slot="actions" slot-scope="row">
         <!-- We use @click.stop here to prevent a 'row-clicked' event from also happening -->
         <b-button size="sm" @click.stop="editRecord(row.item, row.index, $event.target)" class="mr-1">
           Edit
         </b-button>
-        <b-button size="sm" @click.stop="deleteRecord(row.item)">
+        <b-button size="sm" @click.stop="deleteRecord(row.item.account_id)">
           Delete
         </b-button>
       </template>
@@ -48,14 +49,19 @@
     </b-row>
 
     <!-- Info modal -->
-    <b-modal id="modalInfo" @hide="resetModal" :title="modalInfo.title" ok-only>
-      <pre>{{ modalInfo.content }}</pre>
+    <b-modal id="modalInfo" @hide="resetModal" title="Edit Record" size="lg" centered hide-footer>
+      <!-- <pre>{{ modalInfo.content }}</pre> -->
+      <b-form-input v-model="modalInfo.content.account_type"
+                  type="text"
+                  placeholder="Enter Item Name" class="input modal-input"></b-form-input>
+      <b-button @click="updateAccountType(modalInfo.content)" class="input modal-input">Update</b-button>
     </b-modal>
 
   </b-container>
 </template>
 
 <script>
+import userService from '../services/userService'
 const items = [
   {name: 'Expenditure'},
   {name: 'Liabilities'},
@@ -65,9 +71,9 @@ const items = [
 export default {
   data () {
     return {
-      items: items,
+      items: [],
       fields: [
-        { key: 'name', label: 'Account name', sortable: true },
+        { key: 'AccountName', label: 'Account name', sortable: true },
         { key: 'actions', label: 'Actions', sortable: true }
       ],
       currentPage: 1,
@@ -75,7 +81,7 @@ export default {
       totalRows: items.length,
       pageOptions: [ 5, 10, 15 ],
       filter: null,
-      modalInfo: { title: '', content: '' }
+      modalInfo: { title: 'Edit Account Type', content: '' }
     }
   },
   computed: {
@@ -88,12 +94,12 @@ export default {
   },
   methods: {
     editRecord (item, index, button) {
-      this.modalInfo.title = `Row index: ${index}`
-      this.modalInfo.content = JSON.stringify(item, null, 2)
+      console.log(item)
+      this.modalInfo.content = item
+      console.log()
       this.$root.$emit('bv::show::modal', 'modalInfo', button)
     },
     resetModal () {
-      this.modalInfo.title = ''
       this.modalInfo.content = ''
     },
     onFiltered (filteredItems) {
@@ -101,9 +107,25 @@ export default {
       this.totalRows = filteredItems.length
       this.currentPage = 1
     },
-    deleteRecord (item) {
-      console.log(item)
+    async deleteRecord (itemId) {
+      var response = await userService.deleteAccountType(itemId)
+      console.log(response)
+    },
+    async getAllAccountTypes () {
+      var response = await userService.getAllAccountTypes()
+      var accountTypes = []
+      for (var item of response.data) {
+        accountTypes.push(item)
+      }
+      this.items = accountTypes
+    },
+    async updateAccountType (item) {
+      var response = await userService.updateAccountType(item.account_id, item.account_type)
+      console.log(response)
     }
+  },
+  mounted () {
+    this.getAllAccountTypes()
   }
 }
 </script>
