@@ -9,7 +9,7 @@ export default {
     return Api().get(`/company/${id}`)
   },
   addCompany (companyName, userName, userPassword) {
-    return Api().post(`/company`, {company_name: companyName, user_name: userName, user_password: userPassword}, {headers: {'Authorization': Vue.localStorage.get('bearer')}})
+    return Api().post(`/company`, {company_name: companyName, user_name: userName, user_password: userPassword})
   },
   userLogin (userName, userPassword, userCompany) {
     return Api().post(`/login`, {user_name: userName, user_password: userPassword, company: userCompany})

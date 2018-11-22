@@ -34,7 +34,7 @@
         <b-navbar-nav class="ml-auto">
         <b-nav-item-dropdown :text="company.company_name" right>
             <b-dropdown-item href="#">Add User</b-dropdown-item>
-            <b-dropdown-item href="#">Logout</b-dropdown-item>
+            <b-dropdown-item >Logout</b-dropdown-item>
         </b-nav-item-dropdown>
         </b-navbar-nav>
         </b-collapse>
