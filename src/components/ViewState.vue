@@ -35,7 +35,7 @@
         <b-button size="sm" @click.stop="editRecord(row.item, row.index, $event.target)" class="mr-1">
           Edit
         </b-button>
-        <b-button size="sm" @click.stop="deleteRecord(row.item)">
+        <b-button size="sm" @click.stop="deleteRecord(row.item.state_id)">
           Delete
         </b-button>
       </template>
@@ -48,30 +48,30 @@
     </b-row>
 
     <!-- Info modal -->
-    <b-modal id="modalInfo" @hide="resetModal" :title="modalInfo.title" ok-only>
-      <pre>{{ modalInfo.content }}</pre>
+    <b-modal id="modalInfo" @hide="resetModal" title="Edit Record" size="lg" centered hide-footer>
+      <!-- <pre>{{ modalInfo.content }}</pre> -->
+      <b-form-input v-model="modalInfo.content.state_name"
+                  type="text"
+                  placeholder="Enter State Name" class="input modal-input"></b-form-input>
+      <b-button @click="updateState(modalInfo.content)" class="input modal-input">Update</b-button>
     </b-modal>
 
   </b-container>
 </template>
 
 <script>
-const items = [
-  {name: 'Gujarat'},
-  {name: 'Rajasthan'},
-  {name: 'Maharashta'}
-]
+import userService from '../services/userService'
 export default {
   data () {
     return {
-      items: items,
+      items: [],
       fields: [
-        { key: 'name', label: 'State name', sortable: true },
+        { key: 'state_name', label: 'State name', sortable: true },
         { key: 'actions', label: 'Actions', sortable: true }
       ],
       currentPage: 1,
       perPage: 5,
-      totalRows: items.length,
+      totalRows: 0,
       pageOptions: [ 5, 10, 15 ],
       filter: null,
       modalInfo: { title: '', content: '' }
@@ -87,12 +87,10 @@ export default {
   },
   methods: {
     editRecord (item, index, button) {
-      this.modalInfo.title = `Row index: ${index}`
-      this.modalInfo.content = JSON.stringify(item, null, 2)
+      this.modalInfo.content = item
       this.$root.$emit('bv::show::modal', 'modalInfo', button)
     },
     resetModal () {
-      this.modalInfo.title = ''
       this.modalInfo.content = ''
     },
     onFiltered (filteredItems) {
@@ -100,9 +98,22 @@ export default {
       this.totalRows = filteredItems.length
       this.currentPage = 1
     },
-    deleteRecord (item) {
-      console.log(item)
+    async deleteRecord (itemId) {
+      var response = await userService.deleteState(itemId)
+      console.log(response)
+    },
+    async fetchAllStates () {
+      var response = await userService.getAllStates()
+      this.items = response.data
+      this.totalRows = response.data.length
+    },
+    async updateState (item) {
+      var response = await userService.updateState(item.state_id, item.state_name)
+      console.log(response)
     }
+  },
+  mounted () {
+    this.fetchAllStates()
   }
 }
 </script>
