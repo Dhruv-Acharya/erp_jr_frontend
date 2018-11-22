@@ -48,10 +48,14 @@ export default {
     async login () {
       var response = await userService.userLogin(this.userName, this.userPassword, this.selected)
       console.log(response.data)
+      var userObj = await userService.getUserObject(response.data.user.username, response.data.company.company_id)
+      response.data.user.user_id = userObj.data.user_id
+      delete response.data.user.user_password
+      delete response.data.user.user_confirm_password
+      console.log(Vue.localStorage.get('bearer'))
       Vue.localStorage.set('bearer', 'Bearer ' + response.data.token)
       Vue.localStorage.set('company', JSON.stringify(response.data.company))
       Vue.localStorage.set('user', JSON.stringify(response.data.user))
-      console.log(Vue.localStorage.get('bearer'))
     }
   },
   mounted () {

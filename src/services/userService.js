@@ -133,5 +133,8 @@ export default {
   },
   getBarCodeItemDetails () {
     return Api().get(`/barCodeItemDetails`, {headers: {'Authorization': Vue.localStorage.get('bearer')}})
+  },
+  getUserObject (username, companyId) {
+    return Api().get(`/user/${username}/${companyId}`, {headers: {'Authorization': Vue.localStorage.get('bearer')}})
   }
 }
