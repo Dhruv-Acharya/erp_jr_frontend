@@ -8,7 +8,7 @@ import Vue from 'vue'
 export default {
   data () {
     return {
-      companyName: JSON.parse(Vue.localStorage.get('companyName')),
+      companyName: JSON.parse(Vue.localStorage.get('company')),
       isLoggedIn: true
     }
   },
