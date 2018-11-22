@@ -15,6 +15,7 @@ import AddAccountType from '@/components/AddAccountType'
 import ViewAccountType from '@/components/ViewAccountType'
 import AddAccount from '@/components/AddAccount'
 import ViewAccount from '@/components/ViewAccount'
+import AddInvoice from '@/components/AddInvoice'
 Vue.use(Router)
 
 export default new Router({
@@ -98,6 +99,11 @@ export default new Router({
       path: '/viewaccount',
       name: 'viewaccount',
       component: ViewAccount
+    },
+    {
+      path: '/addinvoice',
+      name: 'addinvoice',
+      component: AddInvoice
     }
   ]
 })
