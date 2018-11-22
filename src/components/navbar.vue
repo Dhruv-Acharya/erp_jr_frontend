@@ -32,7 +32,7 @@
         </b-nav-item-dropdown>
         </b-navbar-nav>
         <b-navbar-nav class="ml-auto">
-        <b-nav-item-dropdown :text="companyName.company_name" right>
+        <b-nav-item-dropdown :text="company.company_name" right>
             <b-dropdown-item href="#">Add User</b-dropdown-item>
             <b-dropdown-item href="#">Logout</b-dropdown-item>
         </b-nav-item-dropdown>
@@ -47,7 +47,7 @@ export default {
   data () {
     return {
       showNav: true,
-      companyName: JSON.parse(Vue.localStorage.get('companyName'))
+      company: JSON.parse(Vue.localStorage.get('companyName'))
     }
   },
   methods: {

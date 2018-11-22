@@ -23,7 +23,6 @@
 </template>
 <script>
 import userService from '../services/userService'
-import VueJwtDecode from 'vue-jwt-decode'
 import Vue from 'vue'
 export default {
   data () {
@@ -49,12 +48,10 @@ export default {
     async login () {
       var response = await userService.userLogin(this.userName, this.userPassword, this.selected)
       console.log(response.data)
-      Vue.localStorage.set('bearer', response.data)
-      Vue.localStorage.set('companyName', JSON.stringify(this.selected))
-      console.log(JSON.parse(Vue.localStorage.get('companyName')))
+      Vue.localStorage.set('bearer', 'Bearer ' + response.data.token)
+      Vue.localStorage.set('company', JSON.stringify(response.data.company))
+      Vue.localStorage.set('user', JSON.stringify(response.data.user))
       console.log(Vue.localStorage.get('bearer'))
-      var charArray = response.data.split(' ')
-      console.log(VueJwtDecode.decode(charArray[1]))
     }
   },
   mounted () {

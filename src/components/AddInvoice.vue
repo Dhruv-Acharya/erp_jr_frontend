@@ -8,12 +8,12 @@
                     <b-col>
                             <!--Enter name of the customer-->
                             <b-input-group>
-                            <b-form-input id="CustomerName" placeholder="Enter Name"></b-form-input>
+                            <b-form-input id="CustomerName" placeholder="Enter Name" v-model="customerName"></b-form-input>
                           </b-input-group>
                           <br>
                           <!--Enter narration-->
                             <b-form-textarea id="narration"
-                                        v-model="text"
+                                        v-model="narration"
                                         placeholder="Enter Narration"
                                         :rows="3"
                                         :max-rows="6">
@@ -21,7 +21,7 @@
                             <br>
                             <!--Enter address of the recipient-->
                             <b-form-textarea id="address"
-                                        v-model="text"
+                                        v-model="address"
                                         placeholder="Enter Address"
                                         :rows="3"
                                         :max-rows="6">
@@ -37,22 +37,22 @@
                             <br>
                             <!--Enter L R number  -->
                             <b-input-group>
-                            <b-form-input id="lrnumber" placeholder="Enter L R Number"></b-form-input>
+                            <b-form-input id="lrnumber" placeholder="Enter L R Number" v-model="LRNumber"></b-form-input>
                           </b-input-group>
                           <br>
                           <!--Enter transport-->
                             <b-input-group>
-                                <b-form-input id="transport" placeholder="Enter Transport"></b-form-input>
+                                <b-form-input id="transport" placeholder="Enter Transport" v-model="transport"></b-form-input>
                             </b-input-group>
                             <br>
                             <!--Choose  state-->
                             <b-input-group>
-                               <b-form-select id="nameofstate" v-model="selected" :options="optionsState" placeholder="Select State" />
+                               <b-form-select id="nameofstate" v-model="selectedState" :options="optionsState" placeholder="Select State" />
                             </b-input-group>
                             <br>
                             <!--Enter phone number-->
                             <b-input-group>
-                                <b-form-input id="phonenumber" placeholder="Enter Phone Number"></b-form-input>
+                                <b-form-input id="phonenumber" placeholder="Enter Phone Number" v-model="phoneNumber"></b-form-input>
                             </b-input-group>
                     </b-col>
                 </b-row>
@@ -123,19 +123,19 @@
     </div>
 </template>
 <script>
+import userService from '../services/userService'
 export default {
   data () {
     return {
-      selected: null,
-      optionsState: [
-        { text: 'Select One', value: null },
-        'Gujarat', 'Maharashtra'
-      ],
-      options: [
-        { name: 'item 1', id: 'item1' },
-        { name: 'item 2', id: 'item2' },
-        { name: 'item 3', id: 'item3' }
-      ],
+      customerName: null,
+      narration: null,
+      address: null,
+      LRNumber: null,
+      transport: null,
+      phoneNumber: null,
+      selectedState: null,
+      optionsState: [],
+      optionsItems: [],
       billitems: [
         {
           inventoryitem: '',
@@ -161,7 +161,29 @@ export default {
     },
     deleteRow (index) {
       this.billitems.splice(index, 1)
+    },
+    async fetchStates () {
+      var response = await userService.getAllStates()
+      console.log(response)
+      var stateArray = [{value: null, text: 'Select State', disabled: true}]
+      for (var item of response.data) {
+        stateArray.push({value: item, text: item.state_name})
+      }
+      this.optionsState = stateArray
+    },
+    async fetchInventoryItems () {
+      var response = await userService.getAllInventoryItems()
+      console.log(response)
+      var stateArray = []
+      for (var item of response.data) {
+        stateArray.push({id: item, name: item.state_name})
+      }
+      this.optionsItems = stateArray
     }
+  },
+  mounted () {
+    this.fetchStates()
+    this.fetchInventoryItems()
   }
 }
 </script>
