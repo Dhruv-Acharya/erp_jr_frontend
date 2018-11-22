@@ -89,8 +89,14 @@ export default {
   deleteAccount (id) {
     return Api().delete(`/account/${id}`, {headers: {'Authorization': Vue.localStorage.get('bearer')}})
   },
+  getAllStates () {
+    return Api().get(`/state`, {headers: {'Authorization': Vue.localStorage.get('bearer')}})
+  },
   addState (stateName) {
     return Api().post(`/state`, {state_name: stateName}, {headers: {'Authorization': Vue.localStorage.get('bearer')}})
+  },
+  updateState (id, stateName) {
+    return Api().put(`/state/${id}`, {state_name: stateName}, {headers: {'Authorization': Vue.localStorage.get('bearer')}})
   },
   deleteState (id) {
     return Api().delete(`/state/${id}`, {headers: {'Authorization': Vue.localStorage.get('bearer')}})
