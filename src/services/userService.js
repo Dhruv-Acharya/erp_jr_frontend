@@ -140,5 +140,8 @@ export default {
     } else {
       return false
     }
+  },
+  getUserObject (username, companyId) {
+    return Api().get(`/user/${username}/${companyId}`, {headers: {'Authorization': Vue.localStorage.get('bearer')}})
   }
 }
