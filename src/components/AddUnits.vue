@@ -24,6 +24,7 @@ export default {
     async addNewUnit () {
       var response = await userService.insertUnit(this.unitName)
       console.log(response)
+      alert('New unit successfully added')
     },
     checkLogin () {
       if (!userService.checkIfLoggedIn()) {

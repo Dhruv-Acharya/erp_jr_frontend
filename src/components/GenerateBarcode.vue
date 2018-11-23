@@ -52,6 +52,7 @@ export default {
       var response = await userService.addBarCodeItemDetails(this.selectedItem, this.itemPrice, this.itemQty)
       this.barcodeId = response.data.barcode_id
       this.showBarcode = true
+      alert('Barcode successfully generated')
     }
   },
   mounted () {

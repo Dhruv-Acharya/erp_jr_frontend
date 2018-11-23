@@ -38,6 +38,7 @@ export default {
       var company = JSON.parse(Vue.localStorage.get('company'))
       var response = await userService.addUser(this.password, this.reEnterPassword, company, this.userName)
       console.log(response.data)
+      alert('New user successfully added')
     },
     checkPassword () {
       if (this.password !== this.reEnterPassword) {

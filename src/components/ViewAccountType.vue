@@ -110,6 +110,7 @@ export default {
     async deleteRecord (itemId) {
       var response = await userService.deleteAccountType(itemId)
       console.log(response)
+      alert('AccountType successfully deleted')
     },
     async getAllAccountTypes () {
       var response = await userService.getAllAccountTypes()
@@ -122,6 +123,7 @@ export default {
     async updateAccountType (item) {
       var response = await userService.updateAccountType(item.account_id, item.account_type)
       console.log(response)
+      alert('Account type updated successfully')
     },
     checkLogin () {
       if (!userService.checkIfLoggedIn()) {
