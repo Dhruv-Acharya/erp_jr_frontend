@@ -6,15 +6,13 @@
          <!--Enter Category of the inventory item-->
         <b-form-select id="accountType" v-model="accountSelected" :options="accountOptions" class="input" placeholder="Select Account Type" />
         <div>
-        <b-form-select id="company" v-model="companySelected" :options="companyOptions" class="input" placeholder="Select Company" />
-        </div>
-        <div>
         <b-button id="addInventory" size="md" variant="primary" @click="addAccount()">Add</b-button>
         </div>
     </div>
 </template>
 <script>
 import userService from '../services/userService'
+import Vue from 'vue'
 export default {
   data () {
     return {
@@ -26,14 +24,6 @@ export default {
     }
   },
   methods: {
-    async getCompanies () {
-      var response = await userService.fetchCompanies()
-      var companyList = [{value: null, text: 'Please select a company', disabled: true}]
-      for (var item of response.data) {
-        companyList.push({value: item, text: item.company_name})
-      }
-      this.companyOptions = companyList
-    },
     async fetchAccountType () {
       var response = await userService.getAllAccountTypes()
       var accountTypeArray = [{value: null, text: 'Please select an Account Type', disabled: true}]
@@ -43,7 +33,8 @@ export default {
       this.accountOptions = accountTypeArray
     },
     async addAccount () {
-      var response = await userService.addAccount(this.accountSelected, this.companySelected, this.accountName)
+      var company = JSON.parse(Vue.localStorage.get('company'))
+      var response = await userService.addAccount(this.accountSelected, company, this.accountName)
       console.log(response)
     },
     checkLogin () {
@@ -54,7 +45,6 @@ export default {
   },
   mounted () {
     this.checkLogin()
-    this.getCompanies()
     this.fetchAccountType()
   }
 }

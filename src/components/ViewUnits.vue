@@ -35,7 +35,7 @@
         <b-button size="sm" @click.stop="editRecord(row.item, row.index, $event.target)" class="mr-1">
           Edit
         </b-button>
-        <b-button size="sm" @click.stop="deleteRecord(row.item)">
+        <b-button size="sm" @click.stop="deleteRecord(row.item.unit_id)">
           Delete
         </b-button>
       </template>
@@ -98,8 +98,9 @@ export default {
       this.totalRows = filteredItems.length
       this.currentPage = 1
     },
-    deleteRecord (item) {
-      console.log(item)
+    async deleteRecord (itemId) {
+      var response = await userService.deleteUnit(itemId)
+      console.log(response)
     },
     async fetchAllUnits () {
       var response = await userService.getAllUnits()
