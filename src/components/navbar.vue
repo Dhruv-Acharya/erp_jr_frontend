@@ -33,7 +33,7 @@
         </b-navbar-nav>
         <b-navbar-nav class="ml-auto">
         <b-nav-item-dropdown :text="company.company_name" right>
-            <b-dropdown-item href="#">Add User</b-dropdown-item>
+            <b-dropdown-item @click="toAddUser()">Add User</b-dropdown-item>
             <b-dropdown-item @click="logout()">Logout</b-dropdown-item>
         </b-nav-item-dropdown>
         </b-navbar-nav>
@@ -52,7 +52,7 @@ export default {
   },
   methods: {
     showNavbar () {
-      if (this.$route.path === '/login' || this.$route.path === '/createcompany') {
+      if (this.$route.path === '/' || this.$route.path === '/login' || this.$route.path === '/createcompany') {
         this.showNav = false
       } else {
         this.showNav = true
@@ -100,6 +100,9 @@ export default {
     async logout () {
       Vue.localStorage.remove('bearer')
       this.$router.push({name: 'Login'})
+    },
+    toAddUser () {
+      this.$router.push({name: 'AddUser'})
     }
   },
   created () {

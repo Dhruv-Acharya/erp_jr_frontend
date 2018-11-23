@@ -16,15 +16,19 @@ import ViewAccountType from '@/components/ViewAccountType'
 import AddAccount from '@/components/AddAccount'
 import ViewAccount from '@/components/ViewAccount'
 import AddInvoice from '@/components/AddInvoice'
+<<<<<<< HEAD
+import AddUser from '@/components/AddUser'
+=======
 import GenerateBarcode from '@/components/GenerateBarcode'
+>>>>>>> 79f55342d2d2e6d67a29469c89211477060f1569
 Vue.use(Router)
 
 export default new Router({
   routes: [
     {
       path: '/',
-      name: 'Home',
-      component: Dashboard
+      name: 'Login',
+      component: login
     },
     {
       path: '/login',
@@ -35,6 +39,11 @@ export default new Router({
       path: '/createcompany',
       name: 'CreateCompany',
       component: CreateCompany
+    },
+    {
+      path: '/addUser',
+      name: 'AddUser',
+      component: AddUser
     },
     {
       path: '/dashboard',
