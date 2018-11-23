@@ -16,11 +16,8 @@ import ViewAccountType from '@/components/ViewAccountType'
 import AddAccount from '@/components/AddAccount'
 import ViewAccount from '@/components/ViewAccount'
 import AddInvoice from '@/components/AddInvoice'
-<<<<<<< HEAD
 import AddUser from '@/components/AddUser'
-=======
 import GenerateBarcode from '@/components/GenerateBarcode'
->>>>>>> 79f55342d2d2e6d67a29469c89211477060f1569
 Vue.use(Router)
 
 export default new Router({
