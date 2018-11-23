@@ -9,12 +9,15 @@ import 'bootstrap-vue/dist/bootstrap-vue.css'
 import VueLocalStorage from 'vue-localstorage'
 import VueJwtDecode from 'vue-jwt-decode'
 import Dropdown from 'vue-simple-search-dropdown'
+import VueBarcode from 'vue-barcode'
 
 Vue.use(VueLocalStorage)
 Vue.use(BootstrapVue)
 Vue.use(VueJwtDecode)
 Vue.use(Dropdown)
+Vue.use(VueBarcode)
 Vue.component('Dropdown', Dropdown)
+Vue.component('barcode', VueBarcode)
 Vue.config.productionTip = false
 
 /* eslint-disable no-new */
