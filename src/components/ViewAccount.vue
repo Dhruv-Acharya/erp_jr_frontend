@@ -110,6 +110,7 @@ export default {
     async deleteRecord (itemId) {
       var response = await userService.deleteAccount(itemId)
       console.log(response)
+      alert('Account successfully deleted')
     },
     async fetchAllAccounts () {
       var response = await userService.getAllAccounts()
@@ -120,6 +121,7 @@ export default {
     async updateAccount (account) {
       var response = await userService.updateAccount(account.account_code, account)
       console.log(response)
+      alert('Account updated successfully')
     },
     async fetchAllAccountType () {
       var response = await userService.getAllAccountTypes()

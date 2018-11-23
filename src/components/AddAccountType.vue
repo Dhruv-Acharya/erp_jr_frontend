@@ -24,6 +24,7 @@ export default {
   methods: {
     async addAccountType () {
       console.log(await userService.addAccountType(this.accountType))
+      alert('AccountType successfully added')
     },
     checkLogin () {
       if (!userService.checkIfLoggedIn()) {

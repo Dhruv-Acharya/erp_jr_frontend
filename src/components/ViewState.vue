@@ -101,6 +101,7 @@ export default {
     async deleteRecord (itemId) {
       var response = await userService.deleteState(itemId)
       console.log(response)
+      alert('State deleted successfully')
     },
     async fetchAllStates () {
       var response = await userService.getAllStates()
@@ -110,6 +111,7 @@ export default {
     async updateState (item) {
       var response = await userService.updateState(item.state_id, item.state_name)
       console.log(response)
+      alert('State updated successfully')
     },
     checkLogin () {
       if (!userService.checkIfLoggedIn()) {

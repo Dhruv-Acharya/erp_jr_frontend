@@ -113,6 +113,7 @@ export default {
       console.log(id)
       var response = await userService.deleteCategory(id)
       console.log(response)
+      alert('Category deleted successfully')
     },
     checkLogin () {
       if (!userService.checkIfLoggedIn()) {
@@ -127,6 +128,7 @@ export default {
     async updateCategory (category) {
       var response = await userService.updateCategory(category.hsn_code, category.hsn_code, category.category_name, category.tax_rate)
       console.log(response.data)
+      alert('Category updated successfully')
     }
   },
   mounted () {

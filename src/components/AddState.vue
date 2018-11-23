@@ -25,6 +25,7 @@ export default {
     async addNewState () {
       var response = await userService.addState(this.stateName)
       console.log(response)
+      alert('New state successfully added')
     },
     checkLogin () {
       if (!userService.checkIfLoggedIn()) {

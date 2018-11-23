@@ -152,8 +152,10 @@ export default {
       this.totalRows = filteredItems.length
       this.currentPage = 1
     },
-    deleteRecord (itemId) {
-      userService.deleteInventoryItem(itemId)
+    async deleteRecord (itemId) {
+      var response = await userService.deleteInventoryItem(itemId)
+      console.log(response)
+      alert('Record deleted successfully')
     },
     async fetchUnits () {
       var response = await userService.getAllUnits()
@@ -180,6 +182,7 @@ export default {
     },
     async updateInventory (item) {
       console.log(await userService.updateInventoryItem(item.item_id, item))
+      alert('Inventory item updated successfully')
     },
     checkLogin () {
       if (!userService.checkIfLoggedIn()) {
