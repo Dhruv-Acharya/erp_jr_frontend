@@ -9,8 +9,7 @@
             <b-dropdown-item @click="toGenerateBarcode()">Generate Barcode</b-dropdown-item>
         </b-nav-item-dropdown>
         <b-nav-item-dropdown text="Invoice">
-            <b-dropdown-item href="#">Generate</b-dropdown-item>
-            <b-dropdown-item href="#">View</b-dropdown-item>
+            <b-dropdown-item @click="toGenerateInvoive()">Generate</b-dropdown-item>
         </b-nav-item-dropdown>
         <b-nav-item-dropdown text="Accounts">
             <b-dropdown-item @click="toAddAccount()">Add</b-dropdown-item>
@@ -84,6 +83,9 @@ export default {
     },
     toAddState () {
       this.$router.push({name: 'addstate'})
+    },
+    toGenerateInvoive () {
+      this.$router.push({name: 'addinvoice'})
     },
     toViewState () {
       this.$router.push({name: 'viewstate'})

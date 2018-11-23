@@ -8,7 +8,13 @@
                     <b-col>
                             <!--Enter name of the customer-->
                             <b-input-group>
-                            <b-form-input id="CustomerName" placeholder="Enter Name" v-model="customerName"></b-form-input>
+                            <Dropdown
+                                :options="optionsAccounts"
+                                v-on:selected="validateAccountSelection"
+                                v-on:filter="getDropdownValues"
+                                :disabled="false"
+                                placeholder="Select an option">
+                            </Dropdown>
                           </b-input-group>
                           <br>
                           <!--Enter narration-->
@@ -30,7 +36,7 @@
                     <b-col>
                             <!--Enter date of bill-->
                             <b-form-group id="dateofbill"
-                                label="Date of Bill"
+                                :label="currentDate"
                                 label-for="lrnumber"
                                 >
                             </b-form-group>
@@ -136,7 +142,10 @@ export default {
       selectedState: null,
       optionsState: [],
       optionsItems: [],
+      optionsAccounts: [],
       selectedItem: null,
+      selectedAccount: null,
+      currentDate: null,
       billitems: [
         {
           inventoryitem: '',
@@ -181,19 +190,34 @@ export default {
       }
       this.optionsItems = inventoryItemsArray
     },
+    async fetchAccounts () {
+      var response = await userService.getAllAccounts()
+      console.log(response)
+      var accountsArray = []
+      for (var item of response.data) {
+        accountsArray.push({id: item, name: item.account_name})
+      }
+      this.optionsAccounts = accountsArray
+    },
     checkLogin () {
       if (!userService.checkIfLoggedIn()) {
         this.$router.push('Login')
       }
     },
+    validateAccountSelection (account) {
+      this.selectedAccount = account.id
+    },
     validateSelection (item) {
       this.selectedItem = item.id
+    },
+    generateInvoice () {
     }
   },
   mounted () {
     this.checkLogin()
     this.fetchStates()
     this.fetchInventoryItems()
+    this.fetchAccounts()
   }
 }
 </script>
