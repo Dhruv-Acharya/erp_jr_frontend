@@ -16,14 +16,15 @@ import ViewAccountType from '@/components/ViewAccountType'
 import AddAccount from '@/components/AddAccount'
 import ViewAccount from '@/components/ViewAccount'
 import AddInvoice from '@/components/AddInvoice'
+import AddUser from '@/components/AddUser'
 Vue.use(Router)
 
 export default new Router({
   routes: [
     {
       path: '/',
-      name: 'Home',
-      component: Dashboard
+      name: 'Login',
+      component: login
     },
     {
       path: '/login',
@@ -34,6 +35,11 @@ export default new Router({
       path: '/createcompany',
       name: 'CreateCompany',
       component: CreateCompany
+    },
+    {
+      path: '/addUser',
+      name: 'AddUser',
+      component: AddUser
     },
     {
       path: '/dashboard',
