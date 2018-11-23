@@ -101,6 +101,7 @@ export default {
     async deleteRecord (itemId) {
       var response = await userService.deleteUnit(itemId)
       console.log(response)
+      alert('Unit deleted successfully')
     },
     async fetchAllUnits () {
       var response = await userService.getAllUnits()
@@ -112,6 +113,7 @@ export default {
       console.log(unit.unit_id)
       var response = await userService.updateUnit(unit.unit_id, unit.unit_type)
       console.log(response)
+      alert('Unit updated successfully')
     },
     checkLogin () {
       if (!userService.checkIfLoggedIn()) {
