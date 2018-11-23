@@ -16,6 +16,7 @@ import ViewAccountType from '@/components/ViewAccountType'
 import AddAccount from '@/components/AddAccount'
 import ViewAccount from '@/components/ViewAccount'
 import AddInvoice from '@/components/AddInvoice'
+import GenerateBarcode from '@/components/GenerateBarcode'
 Vue.use(Router)
 
 export default new Router({
@@ -104,6 +105,11 @@ export default new Router({
       path: '/addinvoice',
       name: 'addinvoice',
       component: AddInvoice
+    },
+    {
+      path: '/generateBarcode',
+      name: 'generateBarcode',
+      component: GenerateBarcode
     }
   ],
   mode: 'history'

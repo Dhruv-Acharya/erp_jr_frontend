@@ -132,7 +132,10 @@ export default {
     return Api().delete(`/inventoryItem/${id}`, {headers: {'Authorization': Vue.localStorage.get('bearer')}})
   },
   getBarCodeItemDetails () {
-    return Api().get(`/barCodeItemDetails`, {headers: {'Authorization': Vue.localStorage.get('bearer')}})
+    return Api().get(`/barcodeItemDetails`, {headers: {'Authorization': Vue.localStorage.get('bearer')}})
+  },
+  addBarCodeItemDetails (inventoryItem, itemPrice, itemQty) {
+    return Api().post(`/barcodeItemDetails`, {inventoryItem: inventoryItem, item_price: itemPrice, item_quantity: itemQty}, {headers: {'Authorization': Vue.localStorage.get('bearer')}})
   },
   checkIfLoggedIn () {
     if (Vue.localStorage.get('bearer')) {
