@@ -8,19 +8,26 @@
                 <b-form-input placeholder="Enter Tax rate" class="input" v-model="taxRate"></b-form-input>
         </b-form>
         <div>
-        <b-button id="addUnit" size="md" variant="primary">
+        <b-button id="addUnit" size="md" variant="primary" @click="createCategory()">
                 Add
-            </b-button>
+        </b-button>
         </div>
     </div>
 </template>
 <script>
+import userService from '../services/userService'
 export default {
   data () {
     return {
-      HSNCode: '',
-      categoryName: '',
-      taxRate: ''
+      HSNCode: null,
+      categoryName: null,
+      taxRate: null
+    }
+  },
+  methods: {
+    async createCategory () {
+      var response = await userService.addCategory(this.HSNCode, this.categoryName, this.taxRate)
+      console.log(response)
     }
   }
 }
