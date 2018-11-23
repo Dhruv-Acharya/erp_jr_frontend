@@ -31,7 +31,6 @@
              responsive
     >
       <template slot="AccountType" slot-scope="row">{{row.item.accountType.account_type}}</template>
-      <template slot="Company" slot-scope="row">{{row.item.company.company_name}}</template>
       <template slot="actions" slot-scope="row">
         <!-- We use @click.stop here to prevent a 'row-clicked' event from also happening -->
         <b-button size="sm" @click.stop="editRecord(row.item, row.index, $event.target)" class="mr-1">
@@ -72,7 +71,6 @@ export default {
       items: [],
       fields: [
         { key: 'AccountType', label: 'Account Type', sortable: true },
-        { key: 'Company', label: 'Company', sortable: true },
         { key: 'account_name', label: 'Account Name', sortable: true },
         { key: 'actions', label: 'Actions', sortable: true }
       ],
@@ -123,23 +121,6 @@ export default {
       console.log(response)
       alert('Account updated successfully')
     },
-    async fetchAllAccountType () {
-      var response = await userService.getAllAccountTypes()
-      console.log(response.data)
-      var accountTypeArray = [{value: null, text: 'Please select an account type', disabled: true}]
-      for (var item of response.data) {
-        accountTypeArray.push({value: item, text: item.account_type})
-      }
-      this.accountOptions = accountTypeArray
-    },
-    async getCompanies () {
-      var response = await userService.fetchCompanies()
-      var companyList = [{value: null, text: 'Please select a company', disabled: true}]
-      for (var item of response.data) {
-        companyList.push({value: item, text: item.company_name})
-      }
-      this.companyOptions = companyList
-    },
     checkLogin () {
       if (!userService.checkIfLoggedIn()) {
         this.$router.push('Login')
@@ -149,8 +130,6 @@ export default {
   mounted () {
     this.checkLogin()
     this.fetchAllAccounts()
-    this.fetchAllAccountType()
-    this.getCompanies()
   }
 }
 </script>
