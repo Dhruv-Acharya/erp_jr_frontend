@@ -67,9 +67,6 @@
 
 <script>
 import userService from '../services/userService'
-const items = [
-  {HSNCode: 'Dozen', categoryName: 'category 1', taxRate: 100}
-]
 export default {
   data () {
     return {
@@ -82,7 +79,7 @@ export default {
       ],
       currentPage: 1,
       perPage: 5,
-      totalRows: items.length,
+      totalRows: null,
       pageOptions: [ 5, 10, 15 ],
       filter: null,
       modalInfo: { title: 'Edit Record', content: {} }
@@ -124,6 +121,7 @@ export default {
       var response = await userService.getAllCategories()
       console.log(response.data)
       this.items = response.data
+      this.totalRows = response.data.length
     },
     async updateCategory (category) {
       var response = await userService.updateCategory(category.hsn_code, category.hsn_code, category.category_name, category.tax_rate)
