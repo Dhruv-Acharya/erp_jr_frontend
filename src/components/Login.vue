@@ -46,7 +46,11 @@ export default {
       this.options = companyList
     },
     async login () {
-      var response = await userService.userLogin(this.userName, this.userPassword, this.selected)
+      try {
+        var response = await userService.userLogin(this.userName, this.userPassword, this.selected)
+      } catch (e) {
+        alert('Invalid username or password')
+      }
       if (response.status !== 200) {
         alert('Invalid username or password')
       }
