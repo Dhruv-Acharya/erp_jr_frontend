@@ -45,6 +45,7 @@ export default {
     async addAccount () {
       var response = await userService.addAccount(this.accountSelected, this.companySelected, this.accountName)
       console.log(response)
+      alert('Account successfully added')
     },
     checkLogin () {
       if (!userService.checkIfLoggedIn()) {
