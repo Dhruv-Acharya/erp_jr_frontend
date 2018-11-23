@@ -35,7 +35,7 @@
         <b-button size="sm" @click.stop="editRecord(row.item, row.index, $event.target)" class="mr-1">
           Edit
         </b-button>
-        <b-button size="sm" @click.stop="deleteRecord(row.item)">
+        <b-button size="sm" @click.stop="deleteRecord(row.item.hsn_code)">
           Delete
         </b-button>
       </template>
@@ -48,17 +48,18 @@
     </b-row>
 
     <!-- Info modal -->
-    <b-modal id="modalInfo" @hide="resetModal" :title="modalInfo.title" ok-only>
+    <b-modal id="modalInfo" @hide="resetModal" :title="modalInfo.title" centered hide-footer>
       <!-- <pre>{{ modalInfo.content }}</pre> -->
-        <b-form-input v-model="modalInfo.content.HSNCode"
+        <b-form-input v-model="modalInfo.content.hsn_code"
                   type="text"
                   placeholder="Enter HSN code" class="input modal-input"></b-form-input>
-        <b-form-input v-model="modalInfo.content.categoryName"
+        <b-form-input v-model="modalInfo.content.category_name"
                   type="text"
                   placeholder="Enter Category Name" class="input modal-input"></b-form-input>
-        <b-form-input v-model="modalInfo.content.taxRate"
+        <b-form-input v-model="modalInfo.content.tax_rate"
                   type="text"
                   placeholder="Enter tax rate" class="input modal-input"></b-form-input>
+        <b-button variant="primary" @click="updateCategory(modalInfo.content)"> Update </b-button>
     </b-modal>
 
   </b-container>
@@ -72,11 +73,11 @@ const items = [
 export default {
   data () {
     return {
-      items: items,
+      items: [],
       fields: [
-        { key: 'HSNCode', label: 'HSN Code', sortable: true },
-        { key: 'categoryName', label: 'category name', sortable: true },
-        { key: 'taxRate', label: 'tax rate', sortable: true },
+        { key: 'hsn_code', label: 'HSN Code', sortable: true },
+        { key: 'category_name', label: 'category name', sortable: true },
+        { key: 'tax_rate', label: 'tax rate', sortable: true },
         { key: 'actions', label: 'Actions', sortable: true }
       ],
       currentPage: 1,
@@ -108,17 +109,29 @@ export default {
       this.totalRows = filteredItems.length
       this.currentPage = 1
     },
-    deleteRecord (item) {
-      console.log(item)
+    async deleteRecord (id) {
+      console.log(id)
+      var response = await userService.deleteCategory(id)
+      console.log(response)
     },
     checkLogin () {
       if (!userService.checkIfLoggedIn()) {
         this.$router.push('Login')
       }
+    },
+    async getAllCategories () {
+      var response = await userService.getAllCategories()
+      console.log(response.data)
+      this.items = response.data
+    },
+    async updateCategory (category) {
+      var response = await userService.updateCategory(category.hsn_code, category.hsn_code, category.category_name, category.tax_rate)
+      console.log(response.data)
     }
   },
   mounted () {
     this.checkLogin()
+    this.getAllCategories()
   }
 }
 </script>
