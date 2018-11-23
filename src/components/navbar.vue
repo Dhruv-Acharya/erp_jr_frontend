@@ -6,7 +6,7 @@
         <b-nav-item-dropdown text="Inventory">
             <b-dropdown-item @click="toAddInventory()">Add</b-dropdown-item>
             <b-dropdown-item @click="toViewInventory()">View</b-dropdown-item>
-            <b-dropdown-item href="#">Generate Barcode</b-dropdown-item>
+            <b-dropdown-item @click="toGenerateBarcode()">Generate Barcode</b-dropdown-item>
         </b-nav-item-dropdown>
         <b-nav-item-dropdown text="Invoice">
             <b-dropdown-item href="#">Generate</b-dropdown-item>
@@ -93,6 +93,9 @@ export default {
     },
     toViewCategory () {
       this.$router.push({name: 'viewCategory'})
+    },
+    toGenerateBarcode () {
+      this.$router.push({name: 'generateBarcode'})
     },
     async logout () {
       Vue.localStorage.remove('bearer')

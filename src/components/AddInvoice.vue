@@ -71,7 +71,7 @@
                         <b-input-group>
                            <!-- <b-form-select id="inventoryitem" v-model="selected" :options="items"  placeholder="Select Item" /> -->
                            <Dropdown
-                                :selected="selectedItem" :options="optionsItems"
+                                :options="optionsItems"
                                 v-on:selected="validateSelection"
                                 v-on:filter="getDropdownValues"
                                 :disabled="false"
@@ -185,6 +185,9 @@ export default {
       if (!userService.checkIfLoggedIn()) {
         this.$router.push('Login')
       }
+    },
+    validateSelection (item) {
+      this.selectedItem = item.id
     }
   },
   mounted () {
