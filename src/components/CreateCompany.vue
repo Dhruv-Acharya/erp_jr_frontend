@@ -16,7 +16,7 @@
                   placeholder="Confirm Password" class="input" required @input="checkPassword()"></b-form-input>
         <span style="color:red" v-if="this.mismatch">Passwords does not match</span>
         <div>
-        <b-button size="md" variant="primary" type="submit" :disabled="this.mismatch" @click="onSubmit()">
+        <b-button size="md" variant="primary" :disabled="this.mismatch" @click="onSubmit()">
                 Create
         </b-button>
         </div>
@@ -40,6 +40,7 @@ export default {
     async onSubmit () {
       var response = await userService.addCompany(this.companyName, this.userName, this.password)
       console.log(response.data)
+      this.$router.push({name: 'Login'})
     },
     checkPassword () {
       if (this.password !== this.reEnterPassword) {
